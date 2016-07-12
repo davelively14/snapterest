@@ -1,0 +1,19 @@
+{
+  "name": "snapterest",
+  "version": "1.0.0",
+  "description": "This is the tutorial from the book \"React.js Essentials\", by Artemij Fedosejev.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davelively14/snapterest.git"
+  },
+  "author": "Dave Lively",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davelively14/snapterest/issues"
+  },
+  "homepage": "https://github.com/davelively14/snapterest#readme"
+}
