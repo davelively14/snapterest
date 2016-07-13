@@ -8,6 +8,6 @@ gulp.task('default', function() {
          .transform(babelify)
          .bundle()
          .pipe(source('snapterest.js'))
-        //  This is where you specify the output location of the .js
+         // This is where you specify the output location of the .js
          .pipe(gulp.dest('./build/'));
 });
