@@ -21,5 +21,10 @@
     "browserify": "^13.0.1",
     "gulp": "^3.9.1",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "bootstrap-css-only": "^3.3.6",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
   }
 }
