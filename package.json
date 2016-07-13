@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/davelively14/snapterest/issues"
   },
-  "homepage": "https://github.com/davelively14/snapterest#readme"
+  "homepage": "https://github.com/davelively14/snapterest#readme",
+  "devDependencies": {
+    "browserify": "^13.0.1"
+  }
 }
