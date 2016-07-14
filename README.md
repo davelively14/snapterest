@@ -18,9 +18,25 @@ This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev.
   - Contains functionality for rendering to the DOM
 - bootstrap-css-only
   - Using this instead of the cdn minify in index.html from the book so that I can work offline
+- babel-preset-es2015
+  - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
+- babel-preset-react
+  - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
 
 ## Deviations
 
 #### index.html
 
 - Used local references to bootstrap-css-only instead of cdn calls
+
+#### gulpfile.js
+
+- In order to use the babel presets for JSX, changed the babelify to:
+```
+.transform(babelify.configure({ presets: ["es2015", "react"] }))
+```
+
+#### Dependencies
+
+- babel-preset-es2015
+- babel-preset-react
