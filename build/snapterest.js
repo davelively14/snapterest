@@ -20431,8 +20431,7 @@ var ReactClass = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      isHeaderHidden: false,
-      title: 'Stateful React Component'
+      isHeaderHidden: false
     };
   },
 
@@ -20443,7 +20442,8 @@ var ReactClass = React.createClass({
   },
 
   render: function render() {
-    var headerElement = React.createElement('h1', { className: 'header', key: 'header' }, this.state.title);
+    var title = 'Stateful React Component';
+    var headerElement = React.createElement('h1', { className: 'header', key: 'header' }, title);
     var buttonElement = React.createElement('button', { className: 'btn btn-primary', onClick: this.handleClick, key: 'button' }, 'Toggle Header');
 
     if (this.state.isHeaderHidden) {
