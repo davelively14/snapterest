@@ -25,6 +25,13 @@ This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. 
 
 ## Deviations
 
+#### Conventions
+
+- Did not use terminating semicolons
+- File name conventions
+  - Did not use `Component.react.js` naming for react component files. Instead, used `component.jsx`
+  - Did not capitalize any file names
+
 #### index.html
 
 - Used local references to bootstrap-css-only instead of cdn calls
