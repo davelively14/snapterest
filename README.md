@@ -22,6 +22,8 @@ This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. 
   - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
 - *babel-preset-react*
   - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
+- snapkite-stream-client
+  - Connects to the live stream from the snapkite engine
 
 ## Deviations
 
@@ -31,6 +33,7 @@ This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. 
 - File name conventions
   - Did not use `Component.react.js` naming for react component files. Instead, used `component.jsx`
   - Did not capitalize any file names
+  - Used snake_case for filename spaces
 
 #### index.html
 

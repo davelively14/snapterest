@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var browserify = require('browserify');
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
+var gulp = require('gulp')
+var browserify = require('browserify')
+var babelify = require('babelify')
+var source = require('vinyl-source-stream')
 
 gulp.task('default', function() {
   return browserify('./source/app.js')
@@ -9,5 +9,5 @@ gulp.task('default', function() {
          .bundle()
          .pipe(source('snapterest.js'))
          // This is where you specify the output location of the .js
-         .pipe(gulp.dest('./build/'));
-});
+         .pipe(gulp.dest('./build/'))
+})
