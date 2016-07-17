@@ -1,7 +1,7 @@
 var React = require('react')
 var SnapkiteStreamClient = require('snapkite-stream-client')
-var StreamTweet = require('./stream_tweet')
-var Header = require('./header')
+var StreamTweet = require('./stream_tweet.jsx')
+var Header = require('./header.jsx')
 
 var Stream = React.createClass({
 

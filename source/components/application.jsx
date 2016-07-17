@@ -1,7 +1,7 @@
 // Importing CommonJS dependency modules.
 var React = require('react')
-var Stream = require('./stream')
-var Collection = require('./collection')
+var Stream = require('./stream.jsx')
+var Collection = require('./collection.jsx')
 
 // Define React components. React specific.
 var Application = React.createClass({
