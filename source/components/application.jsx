@@ -53,10 +53,19 @@ var Application = React.createClass({
     return (
       <div className="container-fluid">
         <div className="row">
+          // Smaller column for stream of tweets
           <div className="col-md-4 text-center">
+            // This call renders the Stream component as a child here.
+            // Passes onAddTweetToCollection action as a prop to children. Those
+            // children can manipulate Application state using the prop.
             <Stream onAddTweetToCollection={this.addTweetToCollection} />
           </div>
+          // Larger column for collection of tweets
           <div className="col-md-8">
+            // This renders the Collection component as a child.
+            // Passes tweets data from state as a prop to children and functions
+            // as props so that children can manipulate state through the
+            // referenced functions.
             <Collection tweets={this.state.collectionTweets} onRemoveTweetFromCollection={this.removeTweetFromCollection} onRemoveAllTweetsFromCollection={this.removeAllTweetsFromCollection} />
           </div>
         </div>
