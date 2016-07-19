@@ -55,6 +55,62 @@ var StreamTweet = React.createClass({
     window.snapterest.tweetHtml = componentDOMRepresentation.children[1].outerHTML
   },
 
+  // componentWillReceiveProps is the first component lifecycle method to be
+  // invoked during the Updating Phase if a component receives new props from
+  // its parent component. Will not execute otherwise. React passes the
+  // nextProps object to the function. Note that setState does not trigger any
+  // additional renders when called within this hook function.
+  componentWillReceiveProps: function (nextProps) {
+    console.log('[Snapterest] StreamTweet: 4. Running componentWillReceiveProps()')
+
+    var currentTweetLength = this.props.tweet.text.length
+    var nextTweetLength = nextProps.tweet.text.length
+    var isNumberOfCharactersIncreasing = (nextTweetLength > currentTweetLength)
+    var headerText
+
+    this.setState({
+      numberOfCharactersIsIncreasing: isNumberOfCharactersIncreasing
+    })
+
+    if (isNumberOfCharactersIncreasing) {
+      headerText = 'Number of characters is increasing'
+    } else {
+      headerText = 'Latest public photo from Twitter'
+    }
+
+    // It doesn't matter how often we call setState, React does an internal
+    // optimization where it batches all the state updates together.
+    this.setState({
+      headerText: headerText
+    })
+
+    // TODO [deploy] remove
+    window.snapterest.numberOfReceivedTweets++
+  },
+
+  // Determines if the component shouldl update or not. Must return either true
+  // or false. If forceUpdate() is called, this function will not be called.
+  shouldComponentUpdate: function (nextProps, nextState) {
+    console.log('[Snapterest] StreamTweet: 5. Running shouldComponentUpdate()')
+
+    return (nextProps.tweet.text.length > 1)
+  },
+
+  // componentWillUpdate is called immediately before React updates the DOM and
+  // always receives two arguments: nextProps and nextState. However, setState
+  // cannot be called inside this function.
+  componentWillUpdate: function (nextProps, nextState) {
+    console.log('[Snapterest] StreamTweet: 6. Running componentWillUpdate()')
+  },
+
+  // componentDidUpdate called immediately after React updates the DOM.
+  componentDidUpdate: function (prevProps, prevState) {
+    console.log('[Snapterest] StreamTweet: 7. Running componentDidUpdate()')
+
+    // TODO [deploy] remove
+    window.snapterest.numberOfDisplayedTweets++
+  },
+
   // componentWillUnmount used to cleanup. It is called immediately before React
   // unmmounts the component. Ensure to terminate any other JS API's integrated
   // during componentDidMount().
@@ -66,7 +122,7 @@ var StreamTweet = React.createClass({
   },
 
   render: function () {
-    console.log('[Snapterest] StreamTweet: 4. Running render()')
+    console.log('[Snapterest] StreamTweet: Running render()')
 
     return (
       <section>
