@@ -1,5 +1,6 @@
 var React = require('react')
 
+// Sets style property for all headers
 var headerStyle = {
   fontSize: '16px',
   fontWeight: '300',
