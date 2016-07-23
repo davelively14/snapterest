@@ -1,5 +1,6 @@
 var React = require('react')
 
+// Note that this may not render inline
 var tweetStyle = {
   position: 'relative',
   display: 'inline-block',
@@ -8,6 +9,7 @@ var tweetStyle = {
   margin: '10px'
 }
 
+// Note that this may not render inline
 var imageStyle = {
   maxHeight: '400px',
   boxShadow: '0px 1px 1px 0px #aaa',
