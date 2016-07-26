@@ -2,6 +2,10 @@
 
 This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. Changes to the tutorial's source code are identified in this file. This code is designed to prevent the need for a connection during dev.  Check todo lists before deploying. Several pieces of code need to be removed before it is production ready.
 
+## Current location
+
+Page 84 (105 pdf)
+
 ## Installed dependencies (bold are deviations)
 
 - gulp
