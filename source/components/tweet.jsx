@@ -18,7 +18,8 @@ var imageStyle = {
 
 var Tweet = React.createClass({
 
-  // Validates various component properties.
+  // Validates various component properties. This is only checked in the dev
+  // environment.
   propTypes: {
 
     // Custom validator. React will pass the parameters properties (all
@@ -27,9 +28,10 @@ var Tweet = React.createClass({
     // is the key here, but it's also the propertyName.
     tweet: function (properties, propertyName, componentName) {
 
-      // properties = props passed in
-      // propertyName = tweet or, if no tweet prop, will return null
-      // This is unnecessarily convulated.
+      // properties is an object of all props for the component.
+      // propertyName should correspond to the property we're validation
+      // (tweet), but would be null if it is that property is not present.
+      // This seems unnecessarily convulated.
       var tweet = properties[propertyName]
 
       if (! tweet) {
