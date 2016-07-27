@@ -18,10 +18,18 @@ var imageStyle = {
 
 var Tweet = React.createClass({
 
+  // Validates various component properties.
   propTypes: {
 
-    tweet: function(properties, propertyName, componentName) {
+    // Custom validator. React will pass the parameters properties (all
+    // component props), propertyName (name of property validating), and
+    // componentName(name of the component). This is really weird, because tweet
+    // is the key here, but it's also the propertyName.
+    tweet: function (properties, propertyName, componentName) {
 
+      // properties = props passed in
+      // propertyName = tweet or, if no tweet prop, will return null
+      // This is unnecessarily convulated.
       var tweet = properties[propertyName]
 
       if (! tweet) {
@@ -33,9 +41,17 @@ var Tweet = React.createClass({
       }
     }
 
-    onImageClick: React.propTypes.func
+    // Validates that the onImageClick property is a function. Could also add
+    // a "isRequired" at the end, which would display a warning message in the
+    // console if it was not present.
+    onImageClick: React.PropTypes.func
   },
 
+  // If user clicks rendered image, it will call this function. onImageClick is
+  // set to the onImageClick prop, which is actually the callback function
+  // addTweetToCollection in Application, and passes the tweet object. Because
+  // onImageClick is an optional Tweet component property, we check whether it
+  // was passed before executing.
   handleImageClick: function () {
     var tweet = this.props.tweet
     var onImageClick = this.props.onImageClick
