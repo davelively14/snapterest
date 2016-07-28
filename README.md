@@ -8,7 +8,7 @@ The program works, but the image formatting is weird. Pictures are too big. Crea
 
 Page 129 (150 pdf)
 
-## Installed dependencies (*names in italic are deviations*)
+## Installed dependencies (names in **bold** are deviations)
 
 - gulp
   - Automated build process
@@ -23,11 +23,11 @@ Page 129 (150 pdf)
   - Contains base functionality for React
 - react-dom
   - Contains functionality for rendering to the DOM
-- *bootstrap-css-only*
+- **bootstrap-css-only**
   - Using this instead of the cdn minify in index.html from the book so that I can work offline
-- *babel-preset-es2015*
+- **babel-preset-es2015**
   - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
-- *babel-preset-react*
+- **babel-preset-react**
   - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
 - snapkite-stream-client
   - Connects to the live stream from the snapkite engine
@@ -47,7 +47,7 @@ Page 129 (150 pdf)
   ```
 - react-addons-test-utils
   - Needed to help test, but requires additional packages (see below)
-- *babel-jest*
+- **babel-jest**
   - Required to get jest working with react-addons-test-utils
   - Ensure you have the `.babelrc` file created and configured (see below under Deviations, .babelrc section)
   - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under Deviations, package.json section)
@@ -102,6 +102,10 @@ Page 129 (150 pdf)
 - babel-preset-react
 - bootstrap-css-only
 - babel-jest (with additional configuration, see above)
+
+#### Documentation
+
+- Added notes throughout for future reference. Most are not verbatim from the book.
 
 #### Potentials
 
