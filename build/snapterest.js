@@ -28079,12 +28079,13 @@ var Collection = React.createClass({
 
       // Note that we always wrap in one element, in this case a div, because
       // React only allows one root element.
+
+      // CollectionControls will render a header with a collection name
+      // and a set of buttons that will allow user to modify a collection
       return React.createElement(
         'div',
         null,
-        '// CollectionControls will render a header with a collection name // and a set of buttons that will allow user to modify a collection',
         React.createElement(CollectionControls, { numberOfTweetsInCollection: numberOfTweetsInCollection, htmlMarkup: htmlMarkup, onRemoveAllTweetsFromCollection: removeAllTweetsFromCollection }),
-        '// TweetList component will render a list of tweets',
         React.createElement(TweetList, { tweets: tweets, onRemoveTweetFromCollection: handleRemoveTweetFromCollection })
       );
     }
@@ -28292,26 +28293,30 @@ var CollectionRenameForm = React.createClass({
   },
 
   render: function render() {
-    return(
-      // TODO is this.handleSubmit correct? Doesn't exist.
+
+    // The ref property is a React property that can be attached to any
+    // component that is returned by render() method, allowing us to refer
+    // to this component outside of the render() method.
+    // Note that the user is not in control of the value of the input field,
+    // as it will also reflect the value of the state. The onChange prop is
+    // used to monitor when a user types, which will call handleInputValueChange,
+    // update the state, and rerender.
+    return React.createElement(
+      'form',
+      { className: 'form-inline', onSubmit: this.handleSubmit },
+      React.createElement(Header, { text: 'Collection name:' }),
       React.createElement(
-        'form',
-        { className: 'form-inline', onSubmit: this.handleSubmit },
-        React.createElement(Header, { text: 'Collection name:' }),
-        '// The ref property is a React property that can be attached to any // component that is returned by render() method, allowing us to refer // to this component outside of the render() method. // Note that the user is not in control of the value of the input field, // as it will also reflect the value of the state. The onChange prop is // used to monitor when a user types, which will call handleInputValueChange, // update the state, and rerender.',
-        React.createElement(
-          'div',
-          { className: 'form-group' },
-          React.createElement('input', {
-            className: 'form-control',
-            style: inputStyle,
-            onChange: this.handleInputValueChange,
-            value: this.state.inputValue,
-            ref: 'collectionName' })
-        ),
-        React.createElement(Button, { label: 'Change', handleClick: this.handleFormSubmit }),
-        React.createElement(Button, { label: 'Cancel', handleClick: this.handleFormCancel })
-      )
+        'div',
+        { className: 'form-group' },
+        React.createElement('input', {
+          className: 'form-control',
+          style: inputStyle,
+          onChange: this.handleInputValueChange,
+          value: this.state.inputValue,
+          ref: 'collectionName' })
+      ),
+      React.createElement(Button, { label: 'Change', handleClick: this.handleFormSubmit }),
+      React.createElement(Button, { label: 'Cancel', handleClick: this.handleFormCancel })
     );
   }
 });

@@ -48,14 +48,12 @@ var Collection = React.createClass({
 
       // Note that we always wrap in one element, in this case a div, because
       // React only allows one root element.
+
+      // CollectionControls will render a header with a collection name
+      // and a set of buttons that will allow user to modify a collection
       return (
         <div>
-
-          // CollectionControls will render a header with a collection name
-          // and a set of buttons that will allow user to modify a collection
           <CollectionControls numberOfTweetsInCollection={numberOfTweetsInCollection} htmlMarkup={htmlMarkup} onRemoveAllTweetsFromCollection={removeAllTweetsFromCollection} />
-
-          // TweetList component will render a list of tweets
           <TweetList tweets={tweets} onRemoveTweetFromCollection={handleRemoveTweetFromCollection} />
 
         </div>

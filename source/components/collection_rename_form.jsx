@@ -63,18 +63,17 @@ var CollectionRenameForm = React.createClass({
   },
 
   render: function () {
+    
+    // The ref property is a React property that can be attached to any
+    // component that is returned by render() method, allowing us to refer
+    // to this component outside of the render() method.
+    // Note that the user is not in control of the value of the input field,
+    // as it will also reflect the value of the state. The onChange prop is
+    // used to monitor when a user types, which will call handleInputValueChange,
+    // update the state, and rerender.
     return (
-      // TODO is this.handleSubmit correct? Doesn't exist.
       <form className="form-inline" onSubmit={this.handleSubmit}>
         <Header text="Collection name:" />
-
-        // The ref property is a React property that can be attached to any
-        // component that is returned by render() method, allowing us to refer
-        // to this component outside of the render() method.
-        // Note that the user is not in control of the value of the input field,
-        // as it will also reflect the value of the state. The onChange prop is
-        // used to monitor when a user types, which will call handleInputValueChange,
-        // update the state, and rerender.
         <div className="form-group">
           <input
             className="form-control"
