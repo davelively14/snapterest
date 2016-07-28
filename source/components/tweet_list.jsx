@@ -31,9 +31,9 @@ var TweetList = React.createClass({
     // When rendering a string of HTML markup that represents a collection of
     // tweets. In this case, the onRemoveTweetFromCollection is not provided.
     if (handleRemoveTweetFromCollection) {
-      tweetElement = {
+      tweetElement = (
         <Tweet tweet={tweet} onImageClick={handleRemoveTweetFromCollection} />
-      }
+      )
     } else {
       tweetElement = <Tweet tweet={tweet} />
     }

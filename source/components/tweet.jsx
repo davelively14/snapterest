@@ -41,7 +41,7 @@ var Tweet = React.createClass({
       if (! tweet.media) {
         return new Error('Tweet must have an image.')
       }
-    }
+    },
 
     // Validates that the onImageClick property is a function. Could also add
     // a "isRequired" at the end, which would display a warning message in the
