@@ -64,7 +64,7 @@ Page 129 (150 pdf)
     ]
   }
   ```
-  - Then, create a new file in teh root director called `.babelrc` and add the following bit of code:
+  - Then, create a new file in the root director called `.babelrc` and add the following bit of code:
   ```
   {
     "presets": ["es2015", "react"]
