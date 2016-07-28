@@ -4,7 +4,7 @@ This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. 
 
 ## Current location
 
-Page 111 (132 pdf)
+Page 112 (133 pdf)
 
 ## Installed dependencies (bold are deviations)
 
