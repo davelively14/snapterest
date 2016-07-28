@@ -28565,7 +28565,7 @@ var StreamTweet = React.createClass({
   }
 });
 
-module.export = StreamTweet;
+module.exports = StreamTweet;
 
 },{"./header.jsx":232,"./tweet.jsx":235,"react":210,"react-dom":63}],235:[function(require,module,exports){
 'use strict';

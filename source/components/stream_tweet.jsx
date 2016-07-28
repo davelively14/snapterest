@@ -133,4 +133,4 @@ var StreamTweet = React.createClass({
   }
 })
 
-module.export = StreamTweet
+module.exports = StreamTweet
