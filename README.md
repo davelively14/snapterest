@@ -48,24 +48,9 @@ Page 129 (150 pdf)
 - react-addons-test-utils
   - Needed to help test, but requires additional packages (see below)
 - *babel-jest*
-  - Required to get jest working with react-addons-test-utils. Requires additional steps.
-  - After installing using `npm install --save-dev babel-jest`, open `package.json` and insert the following block:
-  ```
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": [
-      "es6",
-      "js"
-    ],
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils",
-      "<rootDir>/node_modules/fbjs"
-    ]
-  }
-  ```
+  - Required to get jest working with react-addons-test-utils
   - Ensure you have the `.babelrc` file created and configured (see below under Deviations, .babelrc section)
+  - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under Deviations, package.json section)
 
 ## Deviations
 
@@ -81,6 +66,25 @@ Page 129 (150 pdf)
 
 - Used local references to bootstrap-css-only instead of cdn calls
 - Added some formatting changes to improve readability
+
+#### package.json
+
+- After installing `babel-jest`, add this Jest configuration block:
+```
+"jest": {
+  "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+  "testFileExtensions": [
+    "jsx",
+    "js"
+  ],
+  "unmockedModulePathPatterns": [
+    "<rootDir>/node_modules/react",
+    "<rootDir>/node_modules/react-dom",
+    "<rootDir>/node_modules/react-addons-test-utils",
+    "<rootDir>/node_modules/fbjs"
+  ]
+}
+```
 
 #### .babelrc
 
