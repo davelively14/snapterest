@@ -33,17 +33,17 @@ Page 115 (136 pdf)
 - jest-cli
   - Unit testing for React.
   - Have to edit the `package.json` file as well. Change:
-  ```
-  "scripts": {
-     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  ```
-  - to:
-  ```
-  "scripts": {
-    "test": "jest"
-  },
-  ```
+    ```
+    "scripts": {
+       "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    ```
+    to:
+    ```
+    "scripts": {
+      "test": "jest"
+    },
+    ```
 
 ## Deviations
 
