@@ -8,7 +8,7 @@ The program works, but the image formatting is weird. Pictures are too big. Crea
 
 Page 115 (136 pdf)
 
-## Installed dependencies (bold are deviations)
+## Installed dependencies (*names in italic are deviations*)
 
 - gulp
   - Automated build process
@@ -30,6 +30,20 @@ Page 115 (136 pdf)
   - Preset required to use JSX with babel 6.0.0 (which newer babelify versions use). See deviation notes for gulpfile.js below for implementation.
 - snapkite-stream-client
   - Connects to the live stream from the snapkite engine
+- jest-cli
+  - Unit testing for React.
+  - Have to edit the `package.json` file as well. Change:
+  ```
+  "scripts": {
+     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  ```
+  - to:
+  ```
+  "scripts": {
+    "test": "jest"
+  },
+  ```
 
 ## Deviations
 

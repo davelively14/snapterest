@@ -4,7 +4,7 @@
   "description": "This is the tutorial from the book \"React.js Essentials\", by Artemij Fedosejev.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "gulp": "^3.9.1",
+    "jest-cli": "^14.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
