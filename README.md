@@ -16,7 +16,8 @@ Page 129 (150 pdf)
   - Bundles dependency files together so that node modules can be used by the application
 - babelify
   - Needed for JSX
-  - Ensure you have the `.babelrc` file created and configured (see below under Deviations, .babelrc section)
+  - Ensure you have the `.babelrc` file created and configured (see below under *Deviations, .babelrc* section)
+  - Ensure you install `babel-preset-es2015` and `babel-preset-react` as listed below
 - vinyl-source-stream
   - Needed to use browserify and gulp together? Not really clear yet how it does that.
 - react
@@ -49,8 +50,8 @@ Page 129 (150 pdf)
   - Needed to help test, but requires additional packages (see below)
 - **babel-jest**
   - Required to get jest working with react-addons-test-utils
-  - Ensure you have the `.babelrc` file created and configured (see below under Deviations, .babelrc section)
-  - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under Deviations, package.json section)
+  - Ensure you have the `.babelrc` file created and configured (see below under *Deviations, .babelrc* section)
+  - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under *Deviations, package.json* section)
 
 ## Deviations
 
