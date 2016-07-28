@@ -4,7 +4,7 @@ This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. 
 
 ## Current location
 
-Page 84 (105 pdf)
+Page 97 (118 pdf)
 
 ## Installed dependencies (bold are deviations)
 
@@ -56,3 +56,8 @@ Page 84 (105 pdf)
 - babel-preset-es2015
 - babel-preset-react
 - bootstrap-css-only
+
+#### Potentials
+
+- Why no "else"? I hate hanging returns after if clauses
+- Check TODOs
