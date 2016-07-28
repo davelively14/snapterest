@@ -6,7 +6,7 @@ The program works, but the image formatting is weird. Pictures are too big. Crea
 
 ## Current location
 
-Page 115 (136 pdf)
+Page 129 (150 pdf)
 
 ## Installed dependencies (*names in italic are deviations*)
 
@@ -44,6 +44,32 @@ Page 115 (136 pdf)
     "test": "jest"
   },
   ```
+- react-addons-test-utils
+  - Needed to help test, but requires additional packages (see below)
+- *babel-jest*
+  - Required to get jest working with react-addons-test-utils. Requires additional steps.
+  - After installing using `npm install --save-dev babel-jest`, open `package.json` and insert the following block:
+  ```
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
+    ]
+  }
+  ```
+  - Then, create a new file in teh root director called `.babelrc` and add the following bit of code:
+  ```
+  {
+    "presets": ["es2015", "react"]
+  }
+  ```
 
 ## Deviations
 
@@ -72,6 +98,7 @@ Page 115 (136 pdf)
 - babel-preset-es2015
 - babel-preset-react
 - bootstrap-css-only
+- babel-jest (with additional configuration, see above)
 
 #### Potentials
 

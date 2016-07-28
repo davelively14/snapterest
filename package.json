@@ -17,12 +17,14 @@
   },
   "homepage": "https://github.com/davelively14/snapterest#readme",
   "devDependencies": {
+    "babel-jest": "^14.0.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "gulp": "^3.9.1",
     "jest-cli": "^14.0.0",
+    "react-addons-test-utils": "^15.2.1",
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
@@ -30,5 +32,18 @@
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "snapkite-stream-client": "^1.0.3"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-dom",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/fbjs"
+    ]
   }
 }
