@@ -6,7 +6,8 @@ describe('Header component', function() {
     var React = require('react')
     var ReactDOM = require('react-dom')
 
-    // Works great with Jest
+    // Necessary to use the renderIntoDocument function. Note, you need
+    // babel-jest installed and configured for this to work.
     var TestUtils = require('react-addons-test-utils')
     var Header = require('../header.jsx')
 

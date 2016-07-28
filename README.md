@@ -16,6 +16,7 @@ Page 129 (150 pdf)
   - Bundles dependency files together so that node modules can be used by the application
 - babelify
   - Needed for JSX
+  - Ensure you have the `.babelrc` file created and configured (see below under Deviations, .babelrc section)
 - vinyl-source-stream
   - Needed to use browserify and gulp together? Not really clear yet how it does that.
 - react
@@ -64,12 +65,7 @@ Page 129 (150 pdf)
     ]
   }
   ```
-  - Then, create a new file in the root director called `.babelrc` and add the following bit of code:
-  ```
-  {
-    "presets": ["es2015", "react"]
-  }
-  ```
+  - Ensure you have the `.babelrc` file created and configured (see below under Deviations, .babelrc section)
 
 ## Deviations
 
@@ -86,12 +82,15 @@ Page 129 (150 pdf)
 - Used local references to bootstrap-css-only instead of cdn calls
 - Added some formatting changes to improve readability
 
-#### gulpfile.js
+#### .babelrc
 
-- In order to use the babel presets for JSX, changed the babelify to:
+- In order to use the babel presets for JSX, you must create a file in the root directory named `.babelrc`. Within the file, add this code:
 ```
-.transform(babelify.configure({ presets: ["es2015", "react"] }))
+{
+  "presets": ["es2015", "react"]
+}
 ```
+- This is required for both `gulp` and `babel-jest`
 
 #### Dependencies
 
