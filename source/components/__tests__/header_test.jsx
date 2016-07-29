@@ -11,14 +11,16 @@ describe('Header component', function() {
     var TestUtils = require('react-addons-test-utils')
     var Header = require('../header.jsx')
 
-    // Pass the React Header component to the renderIntoDocument, producing a
-    // rendered DOM with the reference 'header' (yes, it's confusing, but it's
-    // not the same as Header).
+    // Pass the React Header component to the renderIntoDocument, which renders
+    // to the DOM and returns the reference, which is stored in the 'header'
+    // variable (yes, confusing, but not the same as 'Header').
     var header = TestUtils.renderIntoDocument(
       <Header text="Testing..." />
     )
 
-    //
+    // ReactDOM.findDOMNode is passed the reference that was stored in the
+    // variable 'header', and returns that DOM node element, which is chained to
+    // textContent, thus returning the text of the element.
     var actualHeaderText = ReactDOM.findDOMNode(header).textContent
 
     expect(actualHeaderText).toBe('Testing...')
