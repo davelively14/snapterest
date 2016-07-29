@@ -6,7 +6,7 @@ The program works, but the image formatting is weird. Pictures are too big. Crea
 
 ## Current location
 
-Page 131 (152 pdf)
+Page 137 (158 pdf)
 
 ## Installed dependencies (names in **bold** are deviations)
 
@@ -49,6 +49,7 @@ Page 131 (152 pdf)
 - react-addons-test-utils
   - Needed to help test, but requires additional packages (see below)
 - **babel-jest**
+  - Ok, so this isn't a deviation, but it isn't mentioned until WAY later after you need it.
   - Required to get jest working with react-addons-test-utils
   - Ensure you have the `.babelrc` file created and configured (see below under *Deviations, .babelrc* section)
   - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under *Deviations, package.json* section)
@@ -102,7 +103,6 @@ Page 131 (152 pdf)
 - babel-preset-es2015
 - babel-preset-react
 - bootstrap-css-only
-- babel-jest (with additional configuration, see above)
 
 #### Documentation
 
