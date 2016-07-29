@@ -6,7 +6,7 @@ The program works, but the image formatting is weird. Pictures are too big. Crea
 
 ## Current location
 
-Page 129 (150 pdf)
+Page 131 (152 pdf)
 
 ## Installed dependencies (names in **bold** are deviations)
 
