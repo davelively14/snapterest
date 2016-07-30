@@ -61,8 +61,8 @@ Page 137 (158 pdf)
 - Did not use terminating semicolons
 - File name conventions
   - Did not use `Component.react.js` naming for react component files. Instead, used `component.jsx`
-  - Did not capitalize any file names
-  - Used snake_case for filename spaces
+  - Did not capitalize any file names, but did capitalize component names. Similar to Elixir convention.
+  - Used `snake_case` for filename spaces
 
 #### index.html
 
