@@ -1,6 +1,6 @@
 # Snapterest
 
-This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. Changes to the tutorial's source code are identified in this file. This code is designed to prevent the need for a connection during dev.  Check todo lists before deploying. Several pieces of code need to be removed before it is production ready.
+This is the tutorial from the book "React.js Essentials", by Artemij Fedosejev. Changes to the tutorial's source code are identified in this file. This code is designed to prevent the need for a connection during dev. Check todo lists before deploying. Several pieces of code need to be removed before it is production ready.
 
 ## Current location
 
@@ -51,6 +51,8 @@ Page 137 (158 pdf)
   - Required to get jest working with react-addons-test-utils
   - Ensure you have the `.babelrc` file created and configured (see below under *Deviations, .babelrc* section)
   - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under *Deviations, package.json* section)
+- flux
+  - Application arcitecture for React that is based on unidirectional data flow
 
 ## Deviations
 
