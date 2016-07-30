@@ -53,6 +53,8 @@ Page 137 (158 pdf)
   - Ensure you have modified the `package.json` file by adding the Jest configuration block (see below under *Deviations, package.json* section)
 - flux
   - Application arcitecture for React that is based on unidirectional data flow
+- object-assign
+  - Module that copies the properties from multiple source objects to a single target object.
 
 ## Deviations
 
