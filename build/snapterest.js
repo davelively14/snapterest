@@ -28589,6 +28589,7 @@ var tweetStyle = {
 // Note that this may not render inline
 var imageStyle = {
   maxHeight: '400px',
+  maxWidth: '300px',
   boxShadow: '0px 1px 1px 0px #aaa',
   border: '1px solid #fff'
 };
