@@ -58,11 +58,17 @@ Page 158 (179 pdf)
 
 ## Data flow
 
+#### Receiving and Displaying Tweets
+
 - `app.js`: This receives the new tweets and calls the receiveTweet function in `tweet_action_creators.js` for each tweet.
 - `tweet_action_creators.js`: Creates and dispatches a new action with every new tweet.
 - `app_dispatcher.js`: Dispatches all actions to all stores.
 - `tweet_store.js`: Registers with `app_dispatcher` and emits the change event on every new action received from that dispatcher.
 - `stream.jsx`: Listens to changes in `tweet_store.js`, gets a new tweet from `tweet_store.js`, updates the state with a new tweet, and re-renders.
+
+#### Collections
+
+- TBP
 
 ## Deviations
 
