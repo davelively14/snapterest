@@ -8,7 +8,7 @@ module.exports = {
     var action = {
       type: 'add_tweet_to_collection',
       tweet: tweet
-    },
+    }
 
     AppDispatcher.dispatch(action)
   },

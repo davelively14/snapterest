@@ -28517,6 +28517,54 @@ module.exports = yeast;
 },{}],230:[function(require,module,exports){
 'use strict';
 
+var AppDispatcher = require('../dispatcher/app_dispatcher.js');
+
+// For each action in collectionStore, we have an action creator function here
+module.exports = {
+
+  addTweetToCollection: function addTweetToCollection(tweet) {
+
+    var action = {
+      type: 'add_tweet_to_collection',
+      tweet: tweet
+    };
+
+    AppDispatcher.dispatch(action);
+  },
+
+  removeTweetFromCollection: function removeTweetFromCollection(tweetId) {
+
+    var action = {
+      type: 'remove_tweet_from_collection',
+      tweetId: tweetId
+    };
+
+    AppDispatcher.dispatch(action);
+  },
+
+  removeAllTweetsFromCollection: function removeAllTweetsFromCollection() {
+
+    var action = {
+      type: 'remove_all_tweets_from_collection'
+    };
+
+    AppDispatcher.dispatch(action);
+  },
+
+  setCollectionName: function setCollectionName(collectionName) {
+
+    var action = {
+      type: 'set_collection_name',
+      collectionName: collectionName
+    };
+
+    AppDispatcher.dispatch(action);
+  }
+};
+
+},{"../dispatcher/app_dispatcher.js":244}],231:[function(require,module,exports){
+'use strict';
+
 // Imports the dispatcher we created previously.
 var AppDispatcher = require('../dispatcher/app_dispatcher.js');
 
@@ -28537,7 +28585,7 @@ module.exports = {
   receiveTweet: receiveTweet
 };
 
-},{"../dispatcher/app_dispatcher.js":243}],231:[function(require,module,exports){
+},{"../dispatcher/app_dispatcher.js":244}],232:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -28549,7 +28597,7 @@ WebAPIUtils.initializeStreamOfTweets();
 
 ReactDOM.render(React.createElement(Application, null), document.getElementById('react-application'));
 
-},{"./components/application.jsx":232,"./utils/web_api_utils.js":245,"react":215,"react-dom":68}],232:[function(require,module,exports){
+},{"./components/application.jsx":233,"./utils/web_api_utils.js":249,"react":215,"react-dom":68}],233:[function(require,module,exports){
 'use strict';
 
 // Importing CommonJS dependency modules.
@@ -28562,13 +28610,14 @@ var Application = React.createClass({
   displayName: 'Application',
 
 
+  // Refactored out
   // React API
-  getInitialState: function getInitialState() {
-    return {
-      collectionTweets: {}
-    };
-  },
-
+  // getInitialState: function () {
+  //   return {
+  //     collectionTweets: {}
+  //   }
+  // },
+  //
   // Notes on addTweetToCollection, removeTweetFromCollection,
   // removeAllTweetsFromCollection:
   // These callback functions will be passed to child componenets as a property.
@@ -28577,32 +28626,32 @@ var Application = React.createClass({
   // state and then trigger the render() function that re-renders all the child
   // components as necessary. This lets the child component focus on how to
   // render itself and allows the parent to control its own state.
-
-  addTweetToCollection: function addTweetToCollection(tweet) {
-    var collectionTweets = this.state.collectionTweets;
-
-    collectionTweets[tweet.id] = tweet;
-
-    this.setState({
-      collectionTweets: collectionTweets
-    });
-  },
-
-  removeTweetFromCollection: function removeTweetFromCollection(tweet) {
-    var collectionTweets = this.state.collectionTweets;
-
-    delete collectionTweets[tweet.id];
-
-    this.setState({
-      collectionTweets: collectionTweets
-    });
-  },
-
-  removeAllTweetsFromCollection: function removeAllTweetsFromCollection() {
-    this.setState({
-      collectionTweets: {}
-    });
-  },
+  //
+  // addTweetToCollection: function (tweet) {
+  //   var collectionTweets = this.state.collectionTweets
+  //
+  //   collectionTweets[tweet.id] = tweet
+  //
+  //   this.setState({
+  //     collectionTweets: collectionTweets
+  //   })
+  // },
+  //
+  // removeTweetFromCollection: function (tweet) {
+  //   var collectionTweets = this.state.collectionTweets
+  //
+  //   delete collectionTweets[tweet.id]
+  //
+  //   this.setState({
+  //     collectionTweets: collectionTweets
+  //   })
+  // },
+  //
+  // removeAllTweetsFromCollection: function () {
+  //   this.setState({
+  //     collectionTweets: {}
+  //   })
+  // },
 
   // React API
   render: function render() {
@@ -28615,12 +28664,12 @@ var Application = React.createClass({
         React.createElement(
           'div',
           { className: 'col-md-4 text-center' },
-          React.createElement(Stream, { onAddTweetToCollection: this.addTweetToCollection })
+          React.createElement(Stream, null)
         ),
         React.createElement(
           'div',
           { className: 'col-md-8' },
-          React.createElement(Collection, { tweets: this.state.collectionTweets, onRemoveTweetFromCollection: this.removeTweetFromCollection, onRemoveAllTweetsFromCollection: this.removeAllTweetsFromCollection })
+          React.createElement(Collection, null)
         )
       )
     );
@@ -28630,7 +28679,7 @@ var Application = React.createClass({
 // Exporting the React component as a CommonJS module.
 module.exports = Application;
 
-},{"./collection.jsx":234,"./stream.jsx":239,"react":215}],233:[function(require,module,exports){
+},{"./collection.jsx":235,"./stream.jsx":240,"react":215}],234:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -28656,7 +28705,7 @@ var Button = React.createClass({
 
 module.exports = Button;
 
-},{"react":215}],234:[function(require,module,exports){
+},{"react":215}],235:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -28664,10 +28713,35 @@ var ReactDOMServer = require('react-dom/server');
 var CollectionControls = require('./collection_controls.jsx');
 var TweetList = require('./tweet_list.jsx');
 var Header = require('./header.jsx');
+var CollectionUtils = require('../utils/collection_utils.js');
+var CollectionStore = require('../stores/collection_store.js');
 
 var Collection = React.createClass({
   displayName: 'Collection',
 
+
+  getInitialState: function getInitialState() {
+    return {
+      collectionTweets: CollectionStore.getCollectionTweets()
+    };
+  },
+
+  // Adds an event listerner and passes the onCollectionChange callback function
+  componentDidMount: function componentDidMount() {
+    CollectionStore.addChangeListener(this.onCollectionChange);
+  },
+
+  // Removes the event listener upon unmounting
+  componentWillUnmount: function componentWillUnmount() {
+    CollectionStore.removeChangeListener(this.onCollectionChange);
+  },
+
+  // This is the callback function passed to CollectionStore's event listener
+  onCollectionChange: function onCollectionChange() {
+    this.setState({
+      collectionTweets: CollectionStore.getCollectionTweets()
+    });
+  },
 
   // Creates a JSON formatted string that represents the HTML markup created by
   // rendering the TweetList component. This is passed to CollectionControls,
@@ -28675,7 +28749,7 @@ var Collection = React.createClass({
   // JSON object that can be bassed to a third-party API.
   createHtmlMarkupStringOfTweetList: function createHtmlMarkupStringOfTweetList() {
 
-    var htmlString = ReactDOMServer.renderToStaticMarkup(React.createElement(TweetList, { tweets: this.props.tweets }));
+    var htmlString = ReactDOMServer.renderToStaticMarkup(React.createElement(TweetList, { tweets: this.state.collectionTweets }));
 
     // Puts the htmlString produced above as the value of the html key in an
     // object.
@@ -28687,36 +28761,24 @@ var Collection = React.createClass({
     return JSON.stringify(htmlMarkup);
   },
 
-  // Returns a list of keys from the tweets object
-  getListOfTweetIds: function getListOfTweetIds() {
-    return Object.keys(this.props.tweets);
-  },
-
-  // Returns length of the list of Tweet ids
-  getNumberOfTweetsInCollection: function getNumberOfTweetsInCollection() {
-    return this.getListOfTweetIds().length;
-  },
-
   render: function render() {
-    var numberOfTweetsInCollection = this.getNumberOfTweetsInCollection();
+    var collectionTweets = this.state.collectionTweets;
+    var numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
+    var htmlMarkup;
 
     if (numberOfTweetsInCollection > 0) {
 
-      var tweets = this.props.tweets;
-      var htmlMarkup = this.createHtmlMarkupStringOfTweetList();
-      var removeAllTweetsFromCollection = this.props.onRemoveAllTweetsFromCollection;
-      var handleRemoveTweetFromCollection = this.props.onRemoveTweetFromCollection;
+      htmlMarkup = this.createHtmlMarkupStringOfTweetList();
 
       // Note that we always wrap in one element, in this case a div, because
       // React only allows one root element.
-
       // CollectionControls will render a header with a collection name
       // and a set of buttons that will allow user to modify a collection
       return React.createElement(
         'div',
         null,
-        React.createElement(CollectionControls, { numberOfTweetsInCollection: numberOfTweetsInCollection, htmlMarkup: htmlMarkup, onRemoveAllTweetsFromCollection: removeAllTweetsFromCollection }),
-        React.createElement(TweetList, { tweets: tweets, onRemoveTweetFromCollection: handleRemoveTweetFromCollection })
+        React.createElement(CollectionControls, { numberOfTweetsInCollection: numberOfTweetsInCollection, htmlMarkup: htmlMarkup }),
+        React.createElement(TweetList, { tweets: collectionTweets })
       );
     }
 
@@ -28727,7 +28789,7 @@ var Collection = React.createClass({
 
 module.exports = Collection;
 
-},{"./collection_controls.jsx":235,"./header.jsx":238,"./tweet_list.jsx":242,"react":215,"react-dom/server":69}],235:[function(require,module,exports){
+},{"../stores/collection_store.js":245,"../utils/collection_utils.js":247,"./collection_controls.jsx":236,"./header.jsx":239,"./tweet_list.jsx":243,"react":215,"react-dom/server":69}],236:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -28735,6 +28797,8 @@ var Header = require('./header.jsx');
 var Button = require('./button.jsx');
 var CollectionRenameForm = require('./collection_rename_form.jsx');
 var CollectionExportForm = require('./collection_export_form.jsx');
+var CollectionActionCreators = require('../actions/collection_action_creators.js');
+var CollectionStore = require('../stores/collection_store.js');
 
 // Renders a user interface to control a collection. Allows user to rename,
 // empty, or export a collection.
@@ -28746,9 +28810,9 @@ var CollectionControls = React.createClass({
   // for this component. Since this component can render either the control
   // elements or a form to change the name, we need to track either state. That
   // is done by the isEditingName boolean.
+  // Refactored: removed the name. That is in the CollectionStore now.
   getInitialState: function getInitialState() {
     return {
-      name: 'new',
       isEditingName: false
     };
   },
@@ -28758,9 +28822,10 @@ var CollectionControls = React.createClass({
   getHeaderText: function getHeaderText() {
     var numberOfTweetsInCollection = this.props.numberOfTweetsInCollection;
     var text = numberOfTweetsInCollection;
+    var name = CollectionStore.getCollectionName();
 
     // Singular wording when only one tweet exists in collection.
-    if (numberOfTweetsInCollection == 1) {
+    if (numberOfTweetsInCollection === 1) {
       text = text + ' tweet in your ';
     } else {
       text = text + ' tweets in your ';
@@ -28773,7 +28838,7 @@ var CollectionControls = React.createClass({
       React.createElement(
         'strong',
         null,
-        this.state.name
+        name
       ),
       ' collection'
     );
@@ -28789,22 +28854,28 @@ var CollectionControls = React.createClass({
     });
   },
 
+  // Used when the user clicks the "Empty Collection" button
+  removeAllTweetsFromCollection: function removeAllTweetsFromCollection() {
+    CollectionActionCreators.removeAllTweetsFromCollection();
+  },
+
+  // Refactored out
   // Passed as a callback function to the CollectionRenameForm via props. Upon
   // user changing the name, this function will alter the state within this
   // component. Sets isEditingName back to false
-  setCollectionName: function setCollectionName(name) {
-    this.setState({
-      name: name,
-      isEditingName: false
-    });
-  },
+  // setCollectionName: function (name) {
+  //   this.setState({
+  //     name: name,
+  //     isEditingName: false
+  //   })
+  // },
 
   render: function render() {
 
     // If we're editing the name, as tracked by the boolean state, then we
     // render a form.
     if (this.state.isEditingName) {
-      return React.createElement(CollectionRenameForm, { name: this.state.name, onChangeCollectionName: this.setCollectionName, onCancelCollectionNameChange: this.toggleEditCollectionName });
+      return React.createElement(CollectionRenameForm, { onCancelCollectionNameChange: this.toggleEditCollectionName });
     }
 
     // If we're not editing the name, then we render the collection controls.
@@ -28813,7 +28884,7 @@ var CollectionControls = React.createClass({
       null,
       React.createElement(Header, { text: this.getHeaderText() }),
       React.createElement(Button, { label: 'Rename collection', handleClick: this.toggleEditCollectionName }),
-      React.createElement(Button, { label: 'Empty collection', handleClick: this.props.onRemoveAllTweetsFromCollection }),
+      React.createElement(Button, { label: 'Empty collection', handleClick: this.removeAllTweetsFromCollection }),
       React.createElement(CollectionExportForm, { htmlMarkup: this.props.htmlMarkup })
     );
   }
@@ -28821,7 +28892,7 @@ var CollectionControls = React.createClass({
 
 module.exports = CollectionControls;
 
-},{"./button.jsx":233,"./collection_export_form.jsx":236,"./collection_rename_form.jsx":237,"./header.jsx":238,"react":215}],236:[function(require,module,exports){
+},{"../actions/collection_action_creators.js":230,"../stores/collection_store.js":245,"./button.jsx":234,"./collection_export_form.jsx":237,"./collection_rename_form.jsx":238,"./header.jsx":239,"react":215}],237:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -28853,13 +28924,15 @@ var CollectionExportForm = React.createClass({
 
 module.exports = CollectionExportForm;
 
-},{"react":215}],237:[function(require,module,exports){
+},{"react":215}],238:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./header.jsx');
 var Button = require('./button.jsx');
+var CollectionActionCreators = require('../actions/collection_action_creators.js');
+var CollectionStore = require('../stores/collection_store.js');
 
 var inputStyle = {
   marginRight: '5px'
@@ -28869,10 +28942,10 @@ var CollectionRenameForm = React.createClass({
   displayName: 'CollectionRenameForm',
 
 
-  // Sets default inputValue to the name passed from parent component.
+  // Sets default inputValue to the name value in CollectionStore.
   getInitialState: function getInitialState() {
     return {
-      inputValue: this.props.name
+      inputValue: CollectionStore.getCollectionName()
     };
   },
 
@@ -28895,14 +28968,16 @@ var CollectionRenameForm = React.createClass({
   },
 
   // Using preventDefault, we cancel the submit action, then pull the state from
-  // the component, and pass it to the onChangeCollectionName callback function,
-  // which allows the parent component to update the collectionName state at its
-  // level.
+  // the component, and pass it to the setCollectionName function of the
+  // CollectionActionCreators object, which packages it as an action and
+  // dispatches to the CollectionStore. This then calls the
+  // onCancelCollectionNameChange function to indicate change is complete.
   handleFormSubmit: function handleFormSubmit(event) {
     event.preventDefault();
 
     var collectionName = this.state.inputValue;
-    this.props.onChangeCollectionName(collectionName);
+    CollectionActionCreators.setCollectionName(collectionName);
+    this.props.onCancelCollectionNameChange();
   },
 
   // Resets the inputValue and executes the onCancelCollectionNameChange
@@ -28910,7 +28985,7 @@ var CollectionRenameForm = React.createClass({
   handleFormCancel: function handleFormCancel(event) {
     event.preventDefault();
 
-    var collectionName = this.props.name;
+    var collectionName = CollectionStore.getCollectionName();
     this.setInputValue(collectionName);
     this.props.onCancelCollectionNameChange();
   },
@@ -28953,7 +29028,7 @@ var CollectionRenameForm = React.createClass({
 
 module.exports = CollectionRenameForm;
 
-},{"./button.jsx":233,"./header.jsx":238,"react":215,"react-dom":68}],238:[function(require,module,exports){
+},{"../actions/collection_action_creators.js":230,"../stores/collection_store.js":245,"./button.jsx":234,"./header.jsx":239,"react":215,"react-dom":68}],239:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -28995,7 +29070,7 @@ var Header = React.createClass({
 
 module.exports = Header;
 
-},{"react":215}],239:[function(require,module,exports){
+},{"react":215}],240:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -29073,20 +29148,21 @@ var Stream = React.createClass({
     }
 
     // Upon initial rendering, this will always be true until a tweet is
-    // received by the Snapkite engine.
+    // is sent by TweetStore.
     return React.createElement(Header, { text: 'Waiting for public photos from Twitter...' });
   }
 });
 
 module.exports = Stream;
 
-},{"../stores/tweet_store.js":244,"./header.jsx":238,"./stream_tweet.jsx":240,"react":215}],240:[function(require,module,exports){
+},{"../stores/tweet_store.js":246,"./header.jsx":239,"./stream_tweet.jsx":241,"react":215}],241:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Header = require('./header.jsx');
 var Tweet = require('./tweet.jsx');
+var CollectionActionCreators = require('../actions/collection_action_creators.js');
 
 var StreamTweet = React.createClass({
   displayName: 'StreamTweet',
@@ -29103,6 +29179,11 @@ var StreamTweet = React.createClass({
       numberOfCharactersIsIncreasing: null,
       headerText: null
     };
+  },
+
+  // Invoked when a user clicks on a tweet image.
+  addTweetToCollection: function addTweetToCollection(tweet) {
+    CollectionActionCreators.addTweetToCollection(tweet);
   },
 
   componentWillMount: function componentWillMount() {
@@ -29215,14 +29296,14 @@ var StreamTweet = React.createClass({
       'section',
       null,
       React.createElement(Header, { text: this.state.headerText }),
-      React.createElement(Tweet, { tweet: this.props.tweet, onImageClick: this.props.onAddTweetToCollection })
+      React.createElement(Tweet, { tweet: this.props.tweet, onImageClick: this.addTweetToCollection })
     );
   }
 });
 
 module.exports = StreamTweet;
 
-},{"./header.jsx":238,"./tweet.jsx":241,"react":215,"react-dom":68}],241:[function(require,module,exports){
+},{"../actions/collection_action_creators.js":230,"./header.jsx":239,"./tweet.jsx":242,"react":215,"react-dom":68}],242:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -29307,11 +29388,12 @@ var Tweet = React.createClass({
 
 module.exports = Tweet;
 
-},{"react":215}],242:[function(require,module,exports){
+},{"react":215}],243:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
 var Tweet = require('./tweet.jsx');
+var CollectionActionCreators = require('../actions/collection_action_creators.js');
 
 var listStyle = {
   padding: '0'
@@ -29331,11 +29413,15 @@ var TweetList = React.createClass({
     return Object.keys(this.props.tweets);
   },
 
+  removeTweetFromCollection: function removeTweetFromCollection(tweet) {
+    CollectionActionCreators.removeTweetFromCollection(tweet.id);
+  },
+
   // Returns a HTML markup for a  Tweet component inside a stylized list for a
   // given tweetId.
   getTweetElement: function getTweetElement(tweetId) {
     var tweet = this.props.tweets[tweetId];
-    var handleRemoveTweetFromCollection = this.props.onRemoveTweetFromCollection;
+    var handleRemoveTweetFromCollection = this.removeTweetFromCollection;
     var tweetElement;
 
     // The TweetList will be used in two different scenarios:
@@ -29379,14 +29465,110 @@ var TweetList = React.createClass({
 
 module.exports = TweetList;
 
-},{"./tweet.jsx":241,"react":215}],243:[function(require,module,exports){
+},{"../actions/collection_action_creators.js":230,"./tweet.jsx":242,"react":215}],244:[function(require,module,exports){
 'use strict';
 
 var Dispatcher = require('flux').Dispatcher;
 
 module.exports = new Dispatcher();
 
-},{"flux":54}],244:[function(require,module,exports){
+},{"flux":54}],245:[function(require,module,exports){
+'use strict';
+
+// Import dependencies
+var AppDispatcher = require('../dispatcher/app_dispatcher.js');
+var EventEmitter = require('events').EventEmitter;
+var assign = require('object-assign');
+
+// Assigns a change event to a constant
+var CHANGE_EVENT = 'change';
+
+// Define data and private functions. Three mutate collectionTweets, one
+// function mutates collectionName.
+var collectionTweets = {};
+var collectionName = 'new';
+
+// Adds a tweet object to our collectionTweets
+function addTweetToCollection(tweet) {
+  collectionTweets[tweet.id] = tweet;
+}
+
+// Removes a tweet from collectionTweets
+function removeTweetFromCollection(tweetId) {
+  delete collectionTweets[tweetId];
+}
+
+// Removes all tweets from collectionTweets by assigning a blank object to our
+// collectionTweets.
+function removeAllTweetsFromCollection() {
+  collectionTweets = {};
+}
+
+// Changes the name
+function setCollectionName(name) {
+  collectionName = name;
+}
+
+// Emits change event to any subscirbed elements
+function emitChange() {
+  CollectionStore.emit(CHANGE_EVENT);
+}
+
+// Similar to TweetStore object, excet for getCollectionTweets and
+// getCollectionName.
+var CollectionStore = assign({}, EventEmitter.prototype, {
+
+  addChangeListener: function addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+
+  removeChangeListener: function removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getCollectionTweets: function getCollectionTweets() {
+    return collectionTweets;
+  },
+
+  getCollectionName: function getCollectionName() {
+    return collectionName;
+  }
+});
+
+// Handles all actions that are dispatched by AppDispatcher.
+function handleAction(action) {
+
+  switch (action.type) {
+
+    case 'add_tweet_to_collection':
+      addTweetToCollection(action.tweet);
+      emitChange();
+      break;
+
+    case 'remove_tweet_from_collection':
+      removeTweetFromCollection(action.tweetId);
+      emitChange();
+      break;
+
+    case 'remove_all_tweets_from_collection':
+      removeAllTweetsFromCollection();
+      emitChange();
+      break;
+
+    case 'set_collection_name':
+      setCollectionName(action.collectionName);
+      emitChange();
+      break;
+
+    default: // do nothing
+  }
+}
+
+CollectionStore.dispatchToken = AppDispatcher.register(handleAction);
+
+module.exports = CollectionStore;
+
+},{"../dispatcher/app_dispatcher.js":244,"events":27,"object-assign":63}],246:[function(require,module,exports){
 'use strict';
 
 // Dispatcher with which to register
@@ -29465,7 +29647,35 @@ TweetStore.dispatchToken = AppDispatcher.register(handleAction);
 
 module.exports = TweetStore;
 
-},{"../dispatcher/app_dispatcher.js":243,"events":27,"object-assign":63}],245:[function(require,module,exports){
+},{"../dispatcher/app_dispatcher.js":244,"events":27,"object-assign":63}],247:[function(require,module,exports){
+'use strict';
+
+function getNumberOfTweetsInCollection(collection) {
+  var TweetUtils = require('./tweet_utils.js');
+  var listOfCollectionTweetIds = TweetUtils.getListOfTweetIds(collection);
+
+  return listOfCollectionTweetIds.length;
+}
+
+function isEmptyCollection(collection) {
+  return getNumberOfTweetsInCollection(collection) == 0;
+}
+
+module.exports = {
+  getNumberOfTweetsInCollection: getNumberOfTweetsInCollection,
+  isEmptyCollection: isEmptyCollection
+};
+
+},{"./tweet_utils.js":248}],248:[function(require,module,exports){
+"use strict";
+
+function getListOfTweetIds(tweets) {
+  return Object.keys(tweets);
+}
+
+module.exports.getListOfTweetIds = getListOfTweetIds;
+
+},{}],249:[function(require,module,exports){
 'use strict';
 
 var SnapkiteStreamClient = require('snapkite-stream-client');
@@ -29484,4 +29694,4 @@ module.exports = {
   initializeStreamOfTweets: initializeStreamOfTweets
 };
 
-},{"../actions/tweet_action_creators.js":230,"snapkite-stream-client":216}]},{},[231]);
+},{"../actions/tweet_action_creators.js":231,"snapkite-stream-client":216}]},{},[232]);

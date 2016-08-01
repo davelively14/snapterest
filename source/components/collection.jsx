@@ -4,7 +4,7 @@ var CollectionControls = require('./collection_controls.jsx')
 var TweetList = require('./tweet_list.jsx')
 var Header = require('./header.jsx')
 var CollectionUtils = require('../utils/collection_utils.js')
-var collectionStore = require('../stores/collection_store.js')
+var CollectionStore = require('../stores/collection_store.js')
 
 var Collection = React.createClass({
 

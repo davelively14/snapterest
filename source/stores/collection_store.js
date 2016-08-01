@@ -78,7 +78,7 @@ function handleAction(action) {
       emitChange()
       break
 
-    case 'set_collection_name'
+    case 'set_collection_name':
       setCollectionName(action.collectionName)
       emitChange()
       break
