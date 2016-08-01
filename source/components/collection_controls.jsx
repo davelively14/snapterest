@@ -3,6 +3,8 @@ var Header = require('./header.jsx')
 var Button = require('./button.jsx')
 var CollectionRenameForm = require('./collection_rename_form.jsx')
 var CollectionExportForm = require('./collection_export_form.jsx')
+var CollectionActionCreators = require('../actions/collection_action_creators.js')
+var CollectionStore = require('../stores/collection_store.js')
 
 // Renders a user interface to control a collection. Allows user to rename,
 // empty, or export a collection.
@@ -12,9 +14,9 @@ var CollectionControls = React.createClass({
   // for this component. Since this component can render either the control
   // elements or a form to change the name, we need to track either state. That
   // is done by the isEditingName boolean.
+  // Refactored: removed the name. That is in the CollectionStore now.
   getInitialState: function () {
     return {
-      name: 'new',
       isEditingName: false
     }
   },
@@ -24,9 +26,10 @@ var CollectionControls = React.createClass({
   getHeaderText: function () {
     var numberOfTweetsInCollection = this.props.numberOfTweetsInCollection
     var text = numberOfTweetsInCollection
+    var name = CollectionStore.getCollectionName()
 
     // Singular wording when only one tweet exists in collection.
-    if (numberOfTweetsInCollection == 1) {
+    if (numberOfTweetsInCollection === 1) {
       text = text + ' tweet in your '
     } else {
       text = text + ' tweets in your '
@@ -34,7 +37,7 @@ var CollectionControls = React.createClass({
 
     return (
       <span>
-        {text}<strong>{this.state.name}</strong> collection
+        {text}<strong>{name}</strong> collection
       </span>
     )
   },
@@ -49,15 +52,21 @@ var CollectionControls = React.createClass({
     })
   },
 
+  // Used when the user clicks the "Empty Collection" button
+  removeAllTweetsFromCollection: function () {
+    CollectionActionCreators.removeAllTweetsFromCollection()
+  },
+
+  // Refactored out
   // Passed as a callback function to the CollectionRenameForm via props. Upon
   // user changing the name, this function will alter the state within this
   // component. Sets isEditingName back to false
-  setCollectionName: function (name) {
-    this.setState({
-      name: name,
-      isEditingName: false
-    })
-  },
+  // setCollectionName: function (name) {
+  //   this.setState({
+  //     name: name,
+  //     isEditingName: false
+  //   })
+  // },
 
   render: function () {
 
@@ -65,7 +74,7 @@ var CollectionControls = React.createClass({
     // render a form.
     if (this.state.isEditingName) {
       return (
-        <CollectionRenameForm name={this.state.name} onChangeCollectionName={this.setCollectionName} onCancelCollectionNameChange={this.toggleEditCollectionName} />
+        <CollectionRenameForm onCancelCollectionNameChange={this.toggleEditCollectionName} />
       )
     }
 
@@ -76,7 +85,7 @@ var CollectionControls = React.createClass({
 
         <Button label="Rename collection" handleClick={this.toggleEditCollectionName} />
 
-        <Button label="Empty collection" handleClick={this.props.onRemoveAllTweetsFromCollection} />
+        <Button label="Empty collection" handleClick={this.removeAllTweetsFromCollection} />
 
         <CollectionExportForm htmlMarkup={this.props.htmlMarkup} />
       </div>
