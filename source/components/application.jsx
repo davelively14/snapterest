@@ -6,13 +6,14 @@ var Collection = require('./collection.jsx')
 // Define React components. React specific.
 var Application = React.createClass({
 
+  // Refactored out
   // React API
-  getInitialState: function () {
-    return {
-      collectionTweets: {}
-    }
-  },
-
+  // getInitialState: function () {
+  //   return {
+  //     collectionTweets: {}
+  //   }
+  // },
+  //
   // Notes on addTweetToCollection, removeTweetFromCollection,
   // removeAllTweetsFromCollection:
   // These callback functions will be passed to child componenets as a property.
@@ -21,32 +22,32 @@ var Application = React.createClass({
   // state and then trigger the render() function that re-renders all the child
   // components as necessary. This lets the child component focus on how to
   // render itself and allows the parent to control its own state.
-
-  addTweetToCollection: function (tweet) {
-    var collectionTweets = this.state.collectionTweets
-
-    collectionTweets[tweet.id] = tweet
-
-    this.setState({
-      collectionTweets: collectionTweets
-    })
-  },
-
-  removeTweetFromCollection: function (tweet) {
-    var collectionTweets = this.state.collectionTweets
-
-    delete collectionTweets[tweet.id]
-
-    this.setState({
-      collectionTweets: collectionTweets
-    })
-  },
-
-  removeAllTweetsFromCollection: function () {
-    this.setState({
-      collectionTweets: {}
-    })
-  },
+  //
+  // addTweetToCollection: function (tweet) {
+  //   var collectionTweets = this.state.collectionTweets
+  //
+  //   collectionTweets[tweet.id] = tweet
+  //
+  //   this.setState({
+  //     collectionTweets: collectionTweets
+  //   })
+  // },
+  //
+  // removeTweetFromCollection: function (tweet) {
+  //   var collectionTweets = this.state.collectionTweets
+  //
+  //   delete collectionTweets[tweet.id]
+  //
+  //   this.setState({
+  //     collectionTweets: collectionTweets
+  //   })
+  // },
+  //
+  // removeAllTweetsFromCollection: function () {
+  //   this.setState({
+  //     collectionTweets: {}
+  //   })
+  // },
 
   // React API
   render: function () {
@@ -54,10 +55,10 @@ var Application = React.createClass({
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-4 text-center">
-            <Stream onAddTweetToCollection={this.addTweetToCollection} />
+            <Stream />
           </div>
           <div className="col-md-8">
-            <Collection tweets={this.state.collectionTweets} onRemoveTweetFromCollection={this.removeTweetFromCollection} onRemoveAllTweetsFromCollection={this.removeAllTweetsFromCollection} />
+            <Collection />
           </div>
         </div>
       </div>
