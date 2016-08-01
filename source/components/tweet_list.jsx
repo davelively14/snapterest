@@ -1,5 +1,6 @@
 var React = require('react')
 var Tweet = require('./tweet.jsx')
+var CollectionActionCreators = require('../actions/collection_action_creators.js')
 
 var listStyle = {
   padding: '0'
@@ -17,11 +18,15 @@ var TweetList = React.createClass({
     return Object.keys(this.props.tweets)
   },
 
+  removeTweetFromCollection: function (tweet) {
+    CollectionActionCreators.removeTweetFromCollection(tweet.id)
+  },
+
   // Returns a HTML markup for a  Tweet component inside a stylized list for a
   // given tweetId.
   getTweetElement: function (tweetId) {
     var tweet = this.props.tweets[tweetId]
-    var handleRemoveTweetFromCollection = this.props.onRemoveTweetFromCollection
+    var handleRemoveTweetFromCollection = this.removeTweetFromCollection
     var tweetElement
 
     // The TweetList will be used in two different scenarios:
