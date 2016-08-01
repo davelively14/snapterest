@@ -14,14 +14,17 @@ var Collection = React.createClass({
     }
   },
 
+  // Adds an event listerner and passes the onCollectionChange callback function
   componentDidMount: function () {
     CollectionStore.addChangeListener(this.onCollectionChange)
   },
 
+  // Removes the event listener upon unmounting
   componentWillUnmount: function () {
     CollectionStore.removeChangeListener(this.onCollectionChange)
   },
 
+  // This is the callback function passed to CollectionStore's event listener
   onCollectionChange: function () {
     this.setState({
       collectionTweets: CollectionStore.getCollectionTweets()
