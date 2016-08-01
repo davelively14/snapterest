@@ -3,8 +3,30 @@ var ReactDOMServer = require('react-dom/server')
 var CollectionControls = require('./collection_controls.jsx')
 var TweetList = require('./tweet_list.jsx')
 var Header = require('./header.jsx')
+var CollectionUtils = require('../utils/collection_utils.js')
+var collectionStore = require('../stores/collection_store.js')
 
 var Collection = React.createClass({
+
+  getInitialState: function () {
+    return {
+      collectionTweets: CollectionStore.getCollectionTweets()
+    }
+  },
+
+  componentDidMount: function () {
+    CollectionStore.addChangeListener(this.onCollectionChange)
+  },
+
+  componentWillUnmount: function () {
+    CollectionStore.removeChangeListener(this.onCollectionChange)
+  },
+
+  onCollectionChange: function () {
+    this.setState({
+      collectionTweets: CollectionStore.getCollectionTweets()
+    })
+  },
 
   // Creates a JSON formatted string that represents the HTML markup created by
   // rendering the TweetList component. This is passed to CollectionControls,
@@ -13,7 +35,7 @@ var Collection = React.createClass({
   createHtmlMarkupStringOfTweetList: function () {
 
     var htmlString = ReactDOMServer.renderToStaticMarkup(
-      <TweetList tweets={this.props.tweets} />
+      <TweetList tweets={this.state.collectionTweets} />
     )
 
     // Puts the htmlString produced above as the value of the html key in an
@@ -26,35 +48,23 @@ var Collection = React.createClass({
     return JSON.stringify(htmlMarkup)
   },
 
-  // Returns a list of keys from the tweets object
-  getListOfTweetIds: function () {
-    return Object.keys(this.props.tweets)
-  },
-
-  // Returns length of the list of Tweet ids
-  getNumberOfTweetsInCollection: function () {
-    return this.getListOfTweetIds().length
-  },
-
   render: function () {
-    var numberOfTweetsInCollection = this.getNumberOfTweetsInCollection()
+    var collectionTweets = this.state.collectionTweets
+    var numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets)
+    var htmlMarkup
 
     if (numberOfTweetsInCollection > 0) {
 
-      var tweets = this.props.tweets
-      var htmlMarkup = this.createHtmlMarkupStringOfTweetList()
-      var removeAllTweetsFromCollection = this.props.onRemoveAllTweetsFromCollection
-      var handleRemoveTweetFromCollection = this.props.onRemoveTweetFromCollection
+      htmlMarkup = this.createHtmlMarkupStringOfTweetList()
 
       // Note that we always wrap in one element, in this case a div, because
       // React only allows one root element.
-
       // CollectionControls will render a header with a collection name
       // and a set of buttons that will allow user to modify a collection
       return (
         <div>
-          <CollectionControls numberOfTweetsInCollection={numberOfTweetsInCollection} htmlMarkup={htmlMarkup} onRemoveAllTweetsFromCollection={removeAllTweetsFromCollection} />
-          <TweetList tweets={tweets} onRemoveTweetFromCollection={handleRemoveTweetFromCollection} />
+          <CollectionControls numberOfTweetsInCollection={numberOfTweetsInCollection} htmlMarkup={htmlMarkup} />
+          <TweetList tweets={collectionTweets} />
 
         </div>
       )
