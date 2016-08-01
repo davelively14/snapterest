@@ -2,6 +2,8 @@ var React = require('react')
 var ReactDOM = require('react-dom')
 var Header = require('./header.jsx')
 var Button = require('./button.jsx')
+var CollectionActionCreators = require('../actions/collection_action_creators.js')
+var CollectionStore = require('../stores/collection_store.js')
 
 var inputStyle = {
   marginRight: '5px'
@@ -9,10 +11,10 @@ var inputStyle = {
 
 var CollectionRenameForm = React.createClass({
 
-  // Sets default inputValue to the name passed from parent component.
+  // Sets default inputValue to the name value in CollectionStore.
   getInitialState: function () {
     return {
-      inputValue: this.props.name
+      inputValue: CollectionStore.getCollectionName()
     }
   },
 
@@ -35,14 +37,16 @@ var CollectionRenameForm = React.createClass({
   },
 
   // Using preventDefault, we cancel the submit action, then pull the state from
-  // the component, and pass it to the onChangeCollectionName callback function,
-  // which allows the parent component to update the collectionName state at its
-  // level.
+  // the component, and pass it to the setCollectionName function of the
+  // CollectionActionCreators object, which packages it as an action and
+  // dispatches to the CollectionStore. This then calls the
+  // onCancelCollectionNameChange function to indicate change is complete.
   handleFormSubmit: function (event) {
     event.preventDefault()
 
     var collectionName = this.state.inputValue
-    this.props.onChangeCollectionName(collectionName)
+    CollectionActionCreators.setCollectionName(collectionName)
+    this.props.onCancelCollectionNameChange()
   },
 
   // Resets the inputValue and executes the onCancelCollectionNameChange
@@ -50,7 +54,7 @@ var CollectionRenameForm = React.createClass({
   handleFormCancel: function (event) {
     event.preventDefault()
 
-    var collectionName = this.props.name
+    var collectionName = CollectionStore.getCollectionName()
     this.setInputValue(collectionName)
     this.props.onCancelCollectionNameChange()
   },
@@ -63,7 +67,7 @@ var CollectionRenameForm = React.createClass({
   },
 
   render: function () {
-    
+
     // The ref property is a React property that can be attached to any
     // component that is returned by render() method, allowing us to refer
     // to this component outside of the render() method.
