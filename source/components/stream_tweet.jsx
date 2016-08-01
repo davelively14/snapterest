@@ -2,6 +2,7 @@ var React = require('react')
 var ReactDOM = require('react-dom')
 var Header = require('./header.jsx')
 var Tweet = require('./tweet.jsx')
+var CollectionActionCreators = require('../actions/collection_action_creators.js')
 
 var StreamTweet = React.createClass({
 
@@ -16,6 +17,11 @@ var StreamTweet = React.createClass({
       numberOfCharactersIsIncreasing: null,
       headerText: null
     }
+  },
+
+  // Invoked when a user clicks on a tweet image.
+  addTweetToCollection: function (tweet) {
+    CollectionActionCreators.addTweetToCollection(tweet)
   },
 
   componentWillMount: function () {
@@ -127,7 +133,7 @@ var StreamTweet = React.createClass({
     return (
       <section>
         <Header text={this.state.headerText} />
-        <Tweet tweet={this.props.tweet} onImageClick={this.props.onAddTweetToCollection} />
+        <Tweet tweet={this.props.tweet} onImageClick={this.addTweetToCollection} />
       </section>
     )
   }
